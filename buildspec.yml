@@ -8,7 +8,7 @@ phases:
         # Get Account ID
         - AWS_ACCOUNT_ID="$(echo $CODEBUILD_BUILD_ARN | cut -f5 -d ':')"
         # This Docker Image tag will have date, time and Codecommit version
-        - TAG="$(date +%Y%m%d%H%M%S)$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
+        - TAG="$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
         # Updating Docker Image tag in your Kubernetes Deployment Manifest        
         - echo "Update Image tag in kubernetes manifest"
         - sed -i 's@CONTAINER_IMAGE@'"$REPOSITORY_URL:$TAG"'@' manifests/deployment.yml
