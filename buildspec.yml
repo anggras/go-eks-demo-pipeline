@@ -8,7 +8,7 @@ phases:
         # Get Account ID
         - AWS_ACCOUNT_ID="$(echo $CODEBUILD_BUILD_ARN | cut -f5 -d ':')"
         # This Docker Image tag will have date, time and Codecommit version
-        - TAG="$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
+        - TAG="$(date +%Y%m%d%H%M%S)$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
         # Updating Docker Image tag in your Kubernetes Deployment Manifest        
         - echo "Update Image tag in kubernetes manifest"
         - sed -i 's@CONTAINER_IMAGE@'"$REPOSITORY_URL:$TAG"'@' manifests/deployment.yml
@@ -31,7 +31,7 @@ phases:
       # Push Docker Image to ECR Repository
       - echo "Docker build completed on `date`"
       - echo "Pushing the Docker image to ECR Repository"
-      - docker push $REPOSITORY_URL:$TAG˝
+      - docker push $REPOSITORY_URL:$TAG
       - echo "Docker Push to ECR Repository Completed -  $REPOSITORY_URL:$TAG"    
       # Get AWS Credential using STS Assume Role for kubectl
       - echo "Setting Environment Variables related to AWS CLI for Kube Config Setup"          
