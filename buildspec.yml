@@ -23,6 +23,7 @@ phases:
   build:
     commands:
       # Building Docker Image
+      - sed -i 's@COMMIT_HASH@'"$TAG"'@' app/main.go
       - echo "Docker build started on `date`"
       - echo "Building the Docker image..."
       - docker build --tag $REPOSITORY_URL:$TAG .
