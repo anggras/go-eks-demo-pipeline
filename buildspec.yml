@@ -6,7 +6,7 @@ phases:
   pre_build:
       commands:
         # This Docker Image tag will have date, time and Codecommit version
-        - TAG="$(date +%Y-%m-%d.%H.%M.%S).$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
+        - TAG="$(date +%Y%m%d%H%M%S)$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
         # Updating Docker Image tag in your Kubernetes Deployment Manifest        
         - echo "Update Image tag in kubernetes manifest"
         - sed -i 's@CONTAINER_IMAGE@'"$REPOSITORY_URI:$TAG"'@' manifests/deployment.yml
