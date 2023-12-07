@@ -5,6 +5,8 @@ phases:
       - echo "Install Phase"
   pre_build:
       commands:
+        # Get Account ID
+        - AWS_ACCOUNT_ID="$(echo $CODEBUILD_BUILD_ARN | cut -f5 -d ':')"
         # This Docker Image tag will have date, time and Codecommit version
         - TAG="$(date +%Y%m%d%H%M%S)$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
         # Updating Docker Image tag in your Kubernetes Deployment Manifest        
