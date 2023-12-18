@@ -3,6 +3,12 @@
 This repository provides a sample Go application CI/CD deployment on EKS
 
 ## Table of Contents:
+- [Deployment Manifest File](#deployment-manifest-file)
+- [Create IAM Role for CodeBuild to interact with EKS](#create-iam-role-for-codebuild-to-interact-with-eks)
+- [Add the CodeBuildEKSRole role to aws-auth configmap](#add-the-codebuildeksrole-role-to-aws-auth-configmap)
+- [Prepare buildspec.yml](#prepare-buildspecyml)
+- [Setting Up CodePipeline](#setting-up-codepipeline)
+- [Create IAM Policy for CodeBuild to assume CodeBuildEKSRole](#create-iam-policy-for-codebuild-to-assume-codebuildeksrole)
 
 ## Tools
 Useful tools to manage EKS:
@@ -68,6 +74,8 @@ In summary, the commands defined in [buildspec.yml](buildspec.yml) will perform 
 4. [Push the Docker image to the ECR Repository](buildspec.yml?#L35)
 5. [Update kubeconfig to use the designated EKS cluster](buildspec.yml?#L39)
 6. [Apply the manifests](buildspec.yml?#L42)
+
+For documentation about build specification reference for CodeBuild: https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html 
 
 ## Setting Up CodePipeline
 ### Create the pipeline with a new IAM Service Role
